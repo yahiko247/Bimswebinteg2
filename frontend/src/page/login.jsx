@@ -5,6 +5,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import Validation from '../../LoginValidation';
 import axios from 'axios';
+import { GoogleLogin } from '@react-oauth/google';
+
 
 function Login() {
  const [values, setValues] = useState({
@@ -57,7 +59,15 @@ function Login() {
               <p style={{ fontSize: '12px', margin: '0 10px' }}>or create with <Link to="/register">Sign Up</Link></p>
               <div className='d-flex align-items-center' style={{ color: 'rgba(16, 170, 142, 1)', margin: '20px' }}>
                 <FacebookIcon style={{ marginRight: '90px', marginLeft: '10px' }} />
-                <GoogleIcon />
+                <GoogleLogin
+                    onSuccess={credentialResponse => {
+                      console.log(credentialResponse);
+                      navigate('/home');
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  />;
               </div>
             </form>
           </div>

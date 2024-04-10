@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -33,6 +33,7 @@ import BrgOfficialPage from './brgOfficial';
 
 
 
+
 const drawerWidth = 240;
 
 function Home(props) {
@@ -41,6 +42,9 @@ function Home(props) {
   const [isClosing, setIsClosing] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+ 
+
+ 
 
   const handleIndexPage = () => {
     setSelectedIndex(index);
@@ -100,6 +104,7 @@ function Home(props) {
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
+         
         ))}
       </List>
       
@@ -149,6 +154,7 @@ function Home(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <h7>Dashboard</h7>
+          
         <Typography paragraph>
           <div style={{display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
             <Card style={{margin:'20px', background: 'rgba(45, 153, 8, 1)', color: 'white', width:'300px', height: '150px'}}>
@@ -186,6 +192,7 @@ function Home(props) {
           </div>
         </Typography>
         <Typography paragraph>
+        
         </Typography>
       </Box>
     </Box>
