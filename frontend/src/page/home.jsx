@@ -27,6 +27,8 @@ import CardContent from '@mui/material/CardContent';
 import { Link } from 'react-router-dom';
 import BrgCertPage from './brgCertPage';
 import BrgOfficialPage from './brgOfficial';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 
 
@@ -72,7 +74,7 @@ function Home(props) {
   };
   const drawer = (
     <div>
-     <div className='text-center' style={{marginTop: '20px'}}>
+     <div className='text-center' style={{ marginTop: '20px'}}>
       <strong><h5 style={{color:'white'}}>B I M S</h5></strong>
      </div>
       <List style={{color:'white', fontSize: '5px'}}>
@@ -87,10 +89,12 @@ function Home(props) {
               <ListItemIcon>
               {index === 0 ? <HouseIcon style={{color: 'white'}} /> : index === 1 ? <MailIcon style={{color:'white'}}/> : index === 2 ? <GavelIcon style={{color:'white'}}/> : <InsertDriveFileIcon style={{color:'white'}}/>}
               </ListItemIcon>
+             
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
+        
       </List>
        {pages[selectedIndex]}
       
@@ -106,7 +110,12 @@ function Home(props) {
           </ListItem>
          
         ))}
+          
       </List>
+      <div style={{color: 'white', marginLeft: '20px'}}>
+        <LogoutIcon></LogoutIcon>
+        <Link to='/' style={{textDecoration: 'none', color: 'white',marginLeft: '20px' }}> Log Out</Link>
+      </div>
       
     </div>
   );
@@ -192,7 +201,7 @@ function Home(props) {
           </div>
         </Typography>
         <Typography paragraph>
-        
+ 
         </Typography>
       </Box>
     </Box>

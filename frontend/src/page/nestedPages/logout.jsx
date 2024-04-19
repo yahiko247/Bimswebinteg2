@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { GoogleLogout } from 'react-google-login';
 
 const clientId = "1048129708172-6qb3rtjtdpin8l8ftr7ihj51hvl80dps.apps.googleusercontent.com";
