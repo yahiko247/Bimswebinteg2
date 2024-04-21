@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -25,7 +25,31 @@ import SourceIcon from '@mui/icons-material/Source';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { Link, useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
+ 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
+
+
+///
 
 const drawerWidth = 240;
 
@@ -78,6 +102,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function HousePage() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +113,30 @@ export default function HousePage() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [data, setData] = useState([
+    { id: 1, name: 'John Doe', age: 30, zone: 6, municipal: 'Baungon', province:'bukidnon' },
+    { id: 2, name: 'Jane Smith', age: 25, zone: 7,municipal: 'Baungon', province:'bukidnon'},
+    { id: 3, name: 'Alice Johnson', age: 35, zone: 8,municipal: 'Baungon', province:'bukidnon'}
+  ]);
+  const [formData, setFormData] = useState({ name: '', age: '', zone: '', municipal:'', province:''});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleAdd = () => {
+    const newData = [...data, { id: data.length + 1, ...formData }];
+    setData(newData);
+    setFormData({ name: '', age: '' , zone:'', municipal:'', province:''});
+  };
+
+  const handleDelete = (id) => {
+    const newData = data.filter(item => item.id !== id);
+    setData(newData);
+  };
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -152,14 +203,118 @@ export default function HousePage() {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open} >
         <DrawerHeader />
-        <Typography paragraph>
-          <h1>helo word</h1>
-          <Link to='/test'> test</Link>
+        <Typography paragraph >
+          <div >
+            <Button onClick={handleOpenModal}>Add  Residents House</Button>
+              <Modal
+                keepMounted
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+              >
+                <Box sx={style}>
+                  <h3>Household Form</h3>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Barangay</label>
+                      <input
+                      className='form-control'
+                        type="text"
+                        placeholder=""
+                        name="age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        style={{ margin: '5px' }}
+                      />
+                  </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Zone</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="zone"
+                            value={formData.zone}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Municipal</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="municipal"
+                            value={formData.municipal}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Province</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="province"
+                            value={formData.province}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                  <button className='btn btn-success w-100' onClick={handleAdd}>Submit</button>
+                </Box>
+              </Modal>
+            </div> 
         </Typography>
         <Typography paragraph>
-          
+          <TableContainer components={Paper}>
+        
+            <Table sx={{ minWidth: 650}}aria-label="caption table">
+              <TableHead>
+                <TableRow>
+                  <TableCell >ID</TableCell >
+                  <TableCell>Family Name</TableCell >
+                  <TableCell>Barangay</TableCell >
+                  <TableCell>Zone</TableCell >
+                  <TableCell>Municipality</TableCell>
+                  <TableCell>Province</TableCell>
+                  
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.map(item => (
+                  <TableRow  key={item.id}>
+                    <TableCell>{item.id}</TableCell >
+                    <TableCell>{item.name}</TableCell >
+                    <TableCell>{item.age}</TableCell >
+                    <TableCell>{item.zone}</TableCell>
+                    <TableCell>{item.municipal}</TableCell>
+                    <TableCell>{item.province}</TableCell>
+                    
+                    <TableCell >
+                      <button onClick={() => handleDelete(item.id)}>Delete</button>
+                    </TableCell >
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Typography>
       </Main>
     </Box>
