@@ -136,7 +136,7 @@ function Home(props) {
               <CardContent>
                
                 <Typography variant="h5" component="h2">
-                  <Link to='/house' style={{textDecoration: 'none', color:'white'}}>House</Link>
+                  <Link to='/houses' style={{textDecoration: 'none', color:'white'}}>House</Link>
                 </Typography>
               </CardContent>
             </Card>

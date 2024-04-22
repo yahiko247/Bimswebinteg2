@@ -15,12 +15,41 @@ const db = mysql.createConnection({
     database: "signup"
 })
 
+
+//post data from register
 app.post('/signup', (req, res) => {
     const sql = "INSERT INTO login (`name`,`email`,`password`) VALUES (?)";
     const values = [
         req.body.name,
         req.body.email,
         req.body.password
+    ]
+    db.query(sql, [values], (err, data) => {
+        if(err){
+            return res.json("Error");
+        }
+        return res.json(data);
+    })
+})
+
+//get data from db
+app.get('/houses', (req, res) => {
+    const sql = "SELECT * FROM houses";
+    db.query(sql, (err, result)=> {
+        if(err) return res.json({Message:"Error inside server"});
+        return res.json(result);
+    })
+})
+
+app.post('/houses', (req, res) => {
+    const sql = "INSERT INTO houses (`name`,`barangay`,`zone`, `municipal`, `province`) VALUES (?)";
+    console.log(req.body)
+    const values = [
+        req.body.name,
+        req.body.barangay,
+        req.body.zone,
+        req.body.municipal,
+        req.body.province
     ]
     db.query(sql, [values], (err, data) => {
         if(err){

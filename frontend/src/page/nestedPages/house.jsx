@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -34,8 +34,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import axios from 'axios'
 
  
+//modal design
 const style = {
   position: 'absolute',
   top: '50%',
@@ -48,8 +50,6 @@ const style = {
 };
 
 
-
-///
 
 const drawerWidth = 240;
 
@@ -105,6 +105,7 @@ export default function HousePage() {
   const [openModal, setOpenModal] = React.useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -114,28 +115,32 @@ export default function HousePage() {
     setOpen(false);
   };
 
-  const [data, setData] = useState([
-    { id: 1, name: 'John Doe', age: 30, zone: 6, municipal: 'Baungon', province:'bukidnon' },
-    { id: 2, name: 'Jane Smith', age: 25, zone: 7,municipal: 'Baungon', province:'bukidnon'},
-    { id: 3, name: 'Alice Johnson', age: 35, zone: 8,municipal: 'Baungon', province:'bukidnon'}
-  ]);
-  const [formData, setFormData] = useState({ name: '', age: '', zone: '', municipal:'', province:''});
+ 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const handleAdd = () => {
-    const newData = [...data, { id: data.length + 1, ...formData }];
-    setData(newData);
-    setFormData({ name: '', age: '' , zone:'', municipal:'', province:''});
-  };
+  //fetching data from db
+  const [data, setData] = useState([])
+  useEffect(()=> {
+    
+    axios.get('http://localhost:8081/houses')
+    .then(res => setData(res.data))
+    .then(err => console.log(err));
+  }, [])
 
-  const handleDelete = (id) => {
-    const newData = data.filter(item => item.id !== id);
-    setData(newData);
-  };
+  const [values, setValue] = useState({
+    name:'',
+    barangay:'',
+    zone:'',
+    municipal:'',
+    province:'',
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:8081/houses', values)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+  }
 
 
   return (
@@ -206,9 +211,10 @@ export default function HousePage() {
       <Main open={open} >
         <DrawerHeader />
         <Typography paragraph >
-          <div >
-            <Button onClick={handleOpenModal}>Add  Residents House</Button>
-              <Modal
+          <div className='d-flex justify-content-end'>
+            <Button onClick={handleOpenModal}> Create +</Button>
+          </div>
+          <Modal
                 keepMounted
                 open={openModal}
                 onClose={handleCloseModal}
@@ -224,63 +230,57 @@ export default function HousePage() {
                           type="text"
                           placeholder=""
                           name="name"
-                          value={formData.name}
-                          onChange={handleChange}
+                          onChange={e => setValue({...values, name: e.target.value})}
                           style={{ margin: '5px' }}
                         />
                   </div>
                   <div>
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Barangay</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Barangay</label>
                       <input
-                      className='form-control'
-                        type="text"
-                        placeholder=""
-                        name="age"
-                        value={formData.age}
-                        onChange={handleChange}
-                        style={{ margin: '5px' }}
-                      />
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="barangay"
+                          onChange={e => setValue({...values, barangay: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
                   </div>
-                    <div>
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Zone</label>
-                        <input
-                          class="form-control"
-                            type="text"
-                            placeholder=""
-                            name="zone"
-                            value={formData.zone}
-                            onChange={handleChange}
-                            style={{ margin: '5px' }}
-                          />
-                    </div>
-                    <div>
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Municipal</label>
-                        <input
-                          class="form-control"
-                            type="text"
-                            placeholder=""
-                            name="municipal"
-                            value={formData.municipal}
-                            onChange={handleChange}
-                            style={{ margin: '5px' }}
-                          />
-                    </div>
-                    <div>
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Province</label>
-                        <input
-                          class="form-control"
-                            type="text"
-                            placeholder=""
-                            name="province"
-                            value={formData.province}
-                            onChange={handleChange}
-                            style={{ margin: '5px' }}
-                          />
-                    </div>
-                  <button className='btn btn-success w-100' onClick={handleAdd}>Submit</button>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Zone</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="zone"
+                          onChange={e => setValue({...values, zone: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Municipality</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="municipal"
+                          onChange={e => setValue({...values, municipal: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Province</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="province"
+                          onChange={e => setValue({...values, province: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <button className='btn btn-success w-100' onClick={handleSubmit}>Submit</button>
                 </Box>
               </Modal>
-            </div> 
         </Typography>
         <Typography paragraph>
           <TableContainer components={Paper}>
@@ -298,14 +298,14 @@ export default function HousePage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map(item => (
-                  <TableRow  key={item.id}>
-                    <TableCell>{item.id}</TableCell >
-                    <TableCell>{item.name}</TableCell >
-                    <TableCell>{item.age}</TableCell >
-                    <TableCell>{item.zone}</TableCell>
-                    <TableCell>{item.municipal}</TableCell>
-                    <TableCell>{item.province}</TableCell>
+                {data.map((houses,index)=> (
+                  <TableRow  key={index}>
+                    <TableCell>{houses.id}</TableCell >
+                    <TableCell>{houses.name}</TableCell >
+                    <TableCell>{houses.barangay}</TableCell >
+                    <TableCell>{houses.zone}</TableCell>
+                    <TableCell>{houses.municipal}</TableCell>
+                    <TableCell>{houses.province}</TableCell>
                     
                     <TableCell >
                       <button onClick={() => handleDelete(item.id)}>Delete</button>
