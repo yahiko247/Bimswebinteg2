@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import HouseIcon from '@mui/icons-material/House';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -30,34 +25,13 @@ import BrgOfficialPage from './brgOfficial';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 
-
-
-
-
-
-
 const drawerWidth = 240;
 
 function Home(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
  
-
- 
-
-  const handleIndexPage = () => {
-    setSelectedIndex(index);
-  };
-
-  const pages = [
-    BrgCertPage,
-    BrgOfficialPage
-  ];
-
-
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -67,11 +41,6 @@ function Home(props) {
     setIsClosing(false);
   };
 
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
-  };
   const drawer = (
     <div>
      <div className='text-center' style={{ marginTop: '20px'}}>
@@ -81,34 +50,31 @@ function Home(props) {
         {['Home', 'Brg Certificate', 'Brg Officials', 'Brg Indigency'].map((text, index) => (
           <ListItem 
           key={text} 
-          disablePadding
-          selected={selectedIndex === index}
-          onClick={() => handleIndexPage(index)}
-          >
+          disablePadding>
             <ListItemButton>
               <ListItemIcon>
               {index === 0 ? <HouseIcon style={{color: 'white'}} /> : index === 1 ? <MailIcon style={{color:'white'}}/> : index === 2 ? <GavelIcon style={{color:'white'}}/> : <InsertDriveFileIcon style={{color:'white'}}/>}
               </ListItemIcon>
-             
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
         
       </List>
-       {pages[selectedIndex]}
+       
       
       <List style={{color: "white", fontSize:'5px'}}>
         {['Brg Clearance', 'Residents Record', 'Request Documents'].map((text, index) => (
           <ListItem key={text} disablePadding>
+            <Link to={`/${text === 'Brg Clearance' ? 'brgClearance' : text === "Residents Record" ? 'brgRecords': text === 'Request Documents' ? 'official' : text.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItemButton>
               <ListItemIcon>
                 {index === 0 ?  <FileCopyIcon style={{color: 'white'}}/> : index ===1 ? <FileOpenIcon style={{color:'white'}}/> : <SourceIcon style={{color:'white'}}/>}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
+            </Link>
           </ListItem>
-         
         ))}
           
       </List>
@@ -192,7 +158,6 @@ function Home(props) {
             </Card>
             <Card style={{margin:'20px', background: 'rgba(40, 125, 105, 1)', color: 'white', width:'300px', height: '150px'}}>
               <CardContent>
-               
                 <Typography variant="h5" component="h2">
                 <Link to='/zone' style={{textDecoration: 'none', color:'white'}}>Zone</Link>
                 </Typography>
@@ -201,7 +166,6 @@ function Home(props) {
           </div>
         </Typography>
         <Typography paragraph>
- 
         </Typography>
       </Box>
     </Box>

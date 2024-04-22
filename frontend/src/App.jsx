@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import Login from './page/login'
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './page/home'
 import Register from './page/register'
@@ -11,11 +9,13 @@ import Zone from './page/nestedPages/zone'
 import NavigationList from './page/nestedPages/testroute'
 import BrgCertPage from './page/brgCertPage'
 import BrgOfficialPage from './page/brgOfficial'
+import BrgClearance from './page/brgClearance'
+import BrgRecords from './page/brgRrecords'
+
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -31,6 +31,8 @@ function App() {
         <Route path='/test' element={<NavigationList/>}></Route>
         <Route path='/cert' element={<BrgCertPage/>}></Route>
         <Route path='/official' element={<BrgOfficialPage/>}></Route>
+        <Route path='/brgClearance' element={<BrgClearance/>}></Route>
+        <Route path='/brgRecords' element={<BrgRecords/>}></Route>
       </Routes>
     </BrowserRouter>
     
