@@ -111,7 +111,7 @@ export default function Youth() {
   const [data, setData] = useState([
     { id: 1, name: 'John', lname:'Doe', contact:'9917121400', email:'jondoe@gmail.com', barangay: 'San Vicente', age: 20, zone: 6, municipal: 'Baungon', province:'bukidnon' },
     { id: 2, name: 'Jane ',lname:'Smith', contact:'9917121400', email:'jondoe@gmail.com', barangay: 'Imabtug', age: 18, zone: 7,municipal: 'Baungon', province:'bukidnon'},
-    { id: 3, name: 'Alice ',lname:'Johnson', contact:'9917121400', email:'jondoe@gmail.com', barangay: 'Salimbalan', age: 40, zone: 8,municipal: 'Baungon', province:'bukidnon'}
+   
   ]);
   const [formData, setFormData] = useState({ name: '', lname:'', contact:'', email:'', barangay: '', age:'', zone: '', municipal:'', province:''});
 

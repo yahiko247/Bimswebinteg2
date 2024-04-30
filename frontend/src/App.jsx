@@ -11,6 +11,8 @@ import BrgCertPage from './page/brgCertPage'
 import BrgOfficialPage from './page/brgOfficial'
 import BrgClearance from './page/brgClearance'
 import BrgRecords from './page/brgRrecords'
+import Map from './leafletMap/mapsample'
+
 
 
 
@@ -33,6 +35,7 @@ function App() {
         <Route path='/official' element={<BrgOfficialPage/>}></Route>
         <Route path='/brgClearance' element={<BrgClearance/>}></Route>
         <Route path='/brgRecords' element={<BrgRecords/>}></Route>
+        <Route path='/map' element={<Map/>}></Route>
       </Routes>
     </BrowserRouter>
     

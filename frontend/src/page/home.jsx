@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,6 +23,8 @@ import { Link } from 'react-router-dom';
 import BrgCertPage from './brgCertPage';
 import BrgOfficialPage from './brgOfficial';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import img1 from '../image/salimbalan.png';
 
 
 const drawerWidth = 240;
@@ -64,25 +66,23 @@ function Home(props) {
        
       
       <List style={{color: "white", fontSize:'5px'}}>
-        {['Brg Clearance', 'Residents Record', 'Request Documents'].map((text, index) => (
+        {['Brg Clearance', 'Residents Record', 'Request Documents', 'View Map'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link to={`/${text === 'Brg Clearance' ? 'brgClearance' : text === "Residents Record" ? 'brgRecords': text === 'Request Documents' ? 'official' : text.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/${text === 'Brg Clearance' ? 'brgClearance' : text === "Residents Record" ? 'brgRecords': text === 'Request Documents' ? 'official' : text === 'View Map' ? 'map': text.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItemButton>
               <ListItemIcon>
-                {index === 0 ?  <FileCopyIcon style={{color: 'white'}}/> : index ===1 ? <FileOpenIcon style={{color:'white'}}/> : <SourceIcon style={{color:'white'}}/>}
+                {index === 0 ?  <FileCopyIcon style={{color: 'white'}}/> : index ===1 ? <FileOpenIcon style={{color:'white'}}/> : index ===2 ?<SourceIcon style={{color:'white'}}/> : index ===3 ? <AddLocationAltIcon style={{color: 'white'}}/>: null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
             </Link>
           </ListItem>
         ))}
-          
       </List>
       <div style={{color: 'white', marginLeft: '20px'}}>
         <LogoutIcon></LogoutIcon>
         <Link to='/' style={{textDecoration: 'none', color: 'white',marginLeft: '20px' }}> Log Out</Link>
       </div>
-      
     </div>
   );
 
@@ -128,8 +128,12 @@ function Home(props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <h7>Dashboard</h7>
-          
+      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+       <strong><h5>D A S H B O A R D</h5></strong>
+        <div className='d-flex justify-content-end'>
+          <img src={img1} alt=""  style={{ width: '50px', height: 'auto' }}/>
+          </div>
+      </div>
         <Typography paragraph>
           <div style={{display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
             <Card style={{margin:'20px', background: 'rgba(45, 153, 8, 1)', color: 'white', width:'300px', height: '150px'}}>

@@ -41,6 +41,7 @@ app.get('/houses', (req, res) => {
     })
 })
 
+//post data to db
 app.post('/houses', (req, res) => {
     const sql = "INSERT INTO houses (`name`,`barangay`,`zone`, `municipal`, `province`) VALUES (?)";
     console.log(req.body)
@@ -60,6 +61,7 @@ app.post('/houses', (req, res) => {
 })
 
 
+//authentication for login request
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM login WHERE `email` = ? AND `password` = ?";
     db.query(sql, [req.body.email, req.body.password], (err, data) => {
