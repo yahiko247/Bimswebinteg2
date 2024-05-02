@@ -9,9 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import Typography from '@mui/material/Typography';
-import HouseIcon from '@mui/icons-material/House';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import SourceIcon from '@mui/icons-material/Source';
@@ -49,16 +47,16 @@ function Home(props) {
       <strong><h5 style={{color:'white'}}>B I M S</h5></strong>
      </div>
       <List style={{color:'white', fontSize: '5px'}}>
-        {['Home', 'Brg Certificate', 'Brg Officials', 'Brg Indigency'].map((text, index) => (
-          <ListItem 
-          key={text} 
-          disablePadding>
+        {['Brg Certificate', 'Brg Officials', 'Brg Indigency'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <Link to={`/${text === 'Brg Certificate' ? 'cert' : text.toLowerCase()}`} style={{textDecoration: 'none', color:'white'}}>
             <ListItemButton>
               <ListItemIcon>
-              {index === 0 ? <HouseIcon style={{color: 'white'}} /> : index === 1 ? <MailIcon style={{color:'white'}}/> : index === 2 ? <GavelIcon style={{color:'white'}}/> : <InsertDriveFileIcon style={{color:'white'}}/>}
+              {index === 0 ?  <FileCopyIcon style={{color:'white'}}/> : index === 1 ? <GavelIcon style={{color:'white'}}/> : <InsertDriveFileIcon style={{color:'white'}}/>}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
+            </Link>
           </ListItem>
         ))}
         

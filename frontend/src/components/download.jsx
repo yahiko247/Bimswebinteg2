@@ -7,13 +7,13 @@ const Downloadpdf = ({rootElementId, downloadFileName}) => {
         const input = document.getElementById(rootElementId)
         html2canvas(input).then((canvas)=>{
             const imgData = canvas.toDataURL("image/png")
-            const pdf = new jsPDF("p", "pt", "a4")
+            const pdf = new jsPDF("l", "pt", "a4")
             pdf.addImage(imgData, "JPEG", 10, 50)
             pdf.save(`${downloadFileName}`)
         })
     }
     return <div>
-        <button onClick={DownloadFileDocument}>Download file</button>
+        <button type="button" class="btn btn-success" onClick={DownloadFileDocument}>Download file</button>
     </div>
 };
 export default Downloadpdf;
