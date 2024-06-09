@@ -179,7 +179,7 @@ function Home(props) {
               <CardContent>
                
                 <Typography variant="h5" component="h2">
-                <Link to='/zone' style={{textDecoration: 'none', color:'white'}}>Zone</Link>
+                <Link to='/zone' style={{textDecoration: 'none', color:'white'}}>zone</Link>
                 </Typography>
               </CardContent>
             </Card>
