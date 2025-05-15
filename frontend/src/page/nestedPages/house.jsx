@@ -122,7 +122,7 @@ export default function HousePage() {
   const [data, setData] = useState([])
   useEffect(()=> {
     
-    axios.get('http://localhost:8081/houses')
+    axios.get('http://192.168.1.105:8081/houses')
     .then(res => setData(res.data))
     .then(err => console.log(err));
   }, [])
@@ -137,7 +137,7 @@ export default function HousePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8081/houses', values)
+    axios.post('http://192.168.1.105:8081/houses', values)
     .then(res => console.log(res))
     .catch(err => console.log(err));
   }

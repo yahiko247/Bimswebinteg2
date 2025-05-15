@@ -66,3 +66,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* Hide Toolpad logo and name in the sidebar drawer */
+.MuiDrawer-root .MuiToolbar-root {
+  display: none !important;
+}

@@ -1,139 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import SourceIcon from '@mui/icons-material/Source';
-import FileOpenIcon from '@mui/icons-material/FileOpen';
-import GavelIcon from '@mui/icons-material/Gavel';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Link } from 'react-router-dom';
-import BrgCertPage from './brgCertPage';
-import BrgOfficialPage from './brgOfficial';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import img1 from '../image/salimbalan.png';
 
 
 const drawerWidth = 240;
 
 function Home(props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
- 
-  const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
-
-  const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
-
-  const drawer = (
-    <div>
-     <div className='text-center' style={{ marginTop: '20px'}}>
-      <strong><h5 style={{color:'white'}}>B I M S</h5></strong>
-     </div>
-      <List style={{color:'white', fontSize: '5px'}}>
-        {['Brg Certificate', 'Brg Officials', 'Brg Indigency'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to={`/${text === 'Brg Certificate' ? 'cert' : text.toLowerCase()}`} style={{textDecoration: 'none', color:'white'}}>
-            <ListItemButton>
-              <ListItemIcon>
-              {index === 0 ?  <FileCopyIcon style={{color:'white'}}/> : index === 1 ? <GavelIcon style={{color:'white'}}/> : <InsertDriveFileIcon style={{color:'white'}}/>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-        
-      </List>
-       
-      
-      <List style={{color: "white", fontSize:'5px'}}>
-        {['Brg Clearance', 'Residents Record', 'Request Documents', 'View Map'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to={`/${text === 'Brg Clearance' ? 'brgClearance' : text === "Residents Record" ? 'brgRecords': text === 'Request Documents' ? 'official' : text === 'View Map' ? 'map': text.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 ?  <FileCopyIcon style={{color: 'white'}}/> : index ===1 ? <FileOpenIcon style={{color:'white'}}/> : index ===2 ?<SourceIcon style={{color:'white'}}/> : index ===3 ? <AddLocationAltIcon style={{color: 'white'}}/>: null}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-      <div style={{color: 'white', marginLeft: '20px'}}>
-        <LogoutIcon></LogoutIcon>
-        <Link to='/' style={{textDecoration: 'none', color: 'white',marginLeft: '20px' }}> Log Out</Link>
-      </div>
-    </div>
-  );
-
-  // Remove this const when copying and pasting into your project.
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex', }}>
-      <CssBaseline />
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onTransitionEnd={handleDrawerTransitionEnd}
-          onClose={handleDrawerClose}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: 'rgba(26, 43, 88, 1);' },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-       <strong><h5>D A S H B O A R D</h5></strong>
-        <div className='d-flex justify-content-end'>
-          <img src={img1} alt=""  style={{ width: '50px', height: 'auto' }}/>
-          </div>
-      </div>
         <Typography paragraph>
-          <div style={{display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
+          <div style={{display: 'flex', flexWrap: 'wrap', gap: '1px'}}>
             <Card style={{margin:'20px', background: 'rgba(45, 153, 8, 1)', color: 'white', width:'300px', height: '150px'}}>
               <CardContent>
                
@@ -173,10 +59,5 @@ function Home(props) {
     </Box>
   );
 }
-
-Home.propTypes = {
-  
-  window: PropTypes.func,
-};
 
 export default Home;

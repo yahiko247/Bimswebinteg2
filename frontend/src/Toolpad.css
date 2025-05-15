@@ -1,0 +1,9 @@
+/* Hide Toolpad logo (SVG) */
+.toolpad-demo-app-9z935p {
+    display: none !important;
+}
+
+/* Hide "Toolpad" text */
+.toolpad-demo-app-9z935p+h6 {
+    display: none !important;
+}

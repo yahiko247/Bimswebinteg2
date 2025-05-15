@@ -23,7 +23,7 @@ function Register() {
         event.preventDefault();
         setErrors(Validation(values));  
         if(errors.name === "" && errors.email === "" && errors.password === "") {
-            axios.post('http://localhost:8081/signup', values) 
+            axios.post('http://192.168.1.105:8081/signup', values) 
             .then(res => {
                 navigate('/');
             })

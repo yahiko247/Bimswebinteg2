@@ -12,6 +12,7 @@ import BrgOfficialPage from './page/brgOfficial'
 import BrgClearance from './page/brgClearance'
 import BrgRecords from './page/brgRrecords'
 import Map from './leafletMap/mapsample'
+import DashboardDisplay from './page/dashboard';
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='/brgClearance' element={<BrgClearance/>}></Route>
         <Route path='/brgRecords' element={<BrgRecords/>}></Route>
         <Route path='/map' element={<Map/>}></Route>
+        <Route path='/dasboard' element={<DashboardDisplay/>}></Route>
       </Routes>
     </BrowserRouter>
     

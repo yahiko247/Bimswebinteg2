@@ -23,10 +23,10 @@ function Login() {
     event.preventDefault();
     setErrors(Validation(values));
     if(errors.email === "" && errors.password === ""){
-      axios.post('http://localhost:8081/login', values)
+      axios.post('http://192.168.1.105:8081/login', values)
       .then(res => {
         if(res.data === "Login success") {
-          navigate('/home');
+          navigate('/dasboard');
         } else {
           alert("no records");
         }
