@@ -4,10 +4,13 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://192.168.1.105:5173', // end point
+    credentials: true
+}));
 app.use(express.json());
 
-
+//db connection
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -77,6 +80,6 @@ app.post('/login', (req, res) => {
 })
 
 
-app.listen(8081, ()=> {
+app.listen(8081, '0.0.0.0', ()=> {
     console.log("listening");
 })
