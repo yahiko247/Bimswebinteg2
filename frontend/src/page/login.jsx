@@ -8,6 +8,8 @@ import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 
 
+
+
 function Login() {
  const [values, setValues] = useState({
     email: '',
@@ -36,7 +38,7 @@ function Login() {
   }
   return (
     <div className='row w-100'>
-      <div className='col-md-6'>
+      <div className='col-md-6' style={{padding: '0'}}>
         <div className='login-container d-flex justify-content-center align-items-center vh-100'>
           <div className=' text-white text-center '>
             <h2>B I M S</h2>
@@ -52,13 +54,11 @@ function Login() {
                 {errors.password && <span className='text-danger'>{errors.password}</span>}
               </div>
               <div className='d-flex justify-content-between align-items-center'>
-                <p style={{ fontSize: '12px' }}>Remember me?</p>
-                <button type='submit' className='btn btn-success w-50'>Login</button>
+                <button type='submit' className='btn btn-success w-100'>Sign in</button>
               </div>
               <hr className="divider" />
-              <p style={{ fontSize: '12px', margin: '0 10px' }}>or create with <Link to="/register">Sign Up</Link></p>
+              <p style={{ fontSize: '12px', margin: '0 10px' }}>or create with</p>
               <div className='d-flex align-items-center' style={{ color: 'rgba(16, 170, 142, 1)', margin: '20px' }}>
-                <FacebookIcon style={{ marginRight: '90px', marginLeft: '10px' }} />
                 <GoogleLogin
                     onSuccess={credentialResponse => {
                       console.log(credentialResponse);
@@ -67,14 +67,14 @@ function Login() {
                     onError={() => {
                       console.log('Login Failed');
                     }}
-                  />;
+                  />
               </div>
             </form>
           </div>
         </div>
       </div>
       <div className='col-md-5 d-flex justify-content-center align-items-center'>
-        <div>
+        <div style={{padding: '20px'}}>
           <h3>Welcome to</h3>
           <p>Brangay Information Management System.
           BIMS can track residents record such as personal to family information,

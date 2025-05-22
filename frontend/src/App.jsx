@@ -13,7 +13,7 @@ import BrgClearance from './page/brgClearance'
 import BrgRecords from './page/brgRrecords'
 import Map from './leafletMap/mapsample'
 import DashboardDisplay from './page/dashboard';
-
+import LandingPage from './page/landingpage'
 
 
 
@@ -24,7 +24,8 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login/>}></Route>
+        <Route path='/' element={<LandingPage/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
         <Route path='/home' element={<Home/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
         <Route path='/houses' element={<HousePage/>}></Route>
@@ -38,6 +39,7 @@ function App() {
         <Route path='/brgRecords' element={<BrgRecords/>}></Route>
         <Route path='/map' element={<Map/>}></Route>
         <Route path='/dasboard' element={<DashboardDisplay/>}></Route>
+       
       </Routes>
     </BrowserRouter>
     
