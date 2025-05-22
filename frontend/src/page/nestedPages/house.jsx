@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState , useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -25,6 +25,30 @@ import SourceIcon from '@mui/icons-material/Source';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { Link, useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import axios from 'axios'
+
+ 
+//modal design
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
 
 
 const drawerWidth = 240;
@@ -78,6 +102,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function HousePage() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +114,34 @@ export default function HousePage() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+ 
+
+
+  //fetching data from db
+  const [data, setData] = useState([])
+  useEffect(()=> {
+    
+    axios.get('http://192.168.1.105:8081/houses')
+    .then(res => setData(res.data))
+    .then(err => console.log(err));
+  }, [])
+
+  const [values, setValue] = useState({
+    name:'',
+    barangay:'',
+    zone:'',
+    municipal:'',
+    province:'',
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://192.168.1.105:8081/houses', values)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+  }
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -152,14 +208,113 @@ export default function HousePage() {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open} >
         <DrawerHeader />
-        <Typography paragraph>
-          <h1>helo word</h1>
-          <Link to='/test'> test</Link>
+        <Typography paragraph >
+          <div className='d-flex justify-content-end'>
+            <Button onClick={handleOpenModal}> Create +</Button>
+          </div>
+          <Modal
+                keepMounted
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+              >
+                <Box sx={style}>
+                  <h3>Household Form</h3>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="name"
+                          onChange={e => setValue({...values, name: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Barangay</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="barangay"
+                          onChange={e => setValue({...values, barangay: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Zone</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="zone"
+                          onChange={e => setValue({...values, zone: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Municipality</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="municipal"
+                          onChange={e => setValue({...values, municipal: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <div>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Province</label>
+                      <input
+                      class="form-control"
+                          type="text"
+                          placeholder=""
+                          name="province"
+                          onChange={e => setValue({...values, province: e.target.value})}
+                          style={{ margin: '5px' }}
+                        />
+                  </div>
+                  <button className='btn btn-success w-100' onClick={handleSubmit}>Submit</button>
+                </Box>
+              </Modal>
         </Typography>
         <Typography paragraph>
-          
+          <TableContainer components={Paper}>
+        
+            <Table sx={{ minWidth: 650}}aria-label="caption table">
+              <TableHead>
+                <TableRow>
+                  <TableCell >ID</TableCell >
+                  <TableCell>Family Name</TableCell >
+                  <TableCell>Barangay</TableCell >
+                  <TableCell>Zone</TableCell >
+                  <TableCell>Municipality</TableCell>
+                  <TableCell>Province</TableCell>
+                  
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.map((houses,index)=> (
+                  <TableRow  key={index}>
+                    <TableCell>{houses.id}</TableCell >
+                    <TableCell>{houses.name}</TableCell >
+                    <TableCell>{houses.barangay}</TableCell >
+                    <TableCell>{houses.zone}</TableCell>
+                    <TableCell>{houses.municipal}</TableCell>
+                    <TableCell>{houses.province}</TableCell>
+                    
+                    <TableCell >
+                      <button onClick={() => handleDelete(item.id)}>Delete</button>
+                    </TableCell >
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Typography>
       </Main>
     </Box>

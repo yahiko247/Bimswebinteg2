@@ -23,7 +23,7 @@ function Register() {
         event.preventDefault();
         setErrors(Validation(values));  
         if(errors.name === "" && errors.email === "" && errors.password === "") {
-            axios.post('http://localhost:8081/signup', values) 
+            axios.post('http://192.168.1.105:8081/signup', values) 
             .then(res => {
                 navigate('/');
             })
@@ -33,7 +33,7 @@ function Register() {
 
     return (
         <div className='row w-100'>
-            <div className='col-md-6'>
+            <div className='col-md-6' style={{ padding: '0'}}>
                 <div className='register-container d-flex justify-content-center align-items-center vh-100'>
                     <div className='text-white text-center' >
                         <h2>B I M S</h2>
@@ -70,7 +70,7 @@ function Register() {
                 </div>
             </div>
             <div className='col-md-5 d-flex justify-content-center align-items-center'>
-                <div>
+                <div style={{padding: '20px'}}>
                     <h3>Welcome to</h3>
                     <p>Brangay Information Management System. BIMS can track residents record such as personal to family information,
                         complaints to amicable settlement information (Barangay Justice System) and can create daily reports for the Barangay.

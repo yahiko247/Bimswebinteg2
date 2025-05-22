@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -24,6 +24,28 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import SourceIcon from '@mui/icons-material/Source';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import GavelIcon from '@mui/icons-material/Gavel';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
 
 const drawerWidth = 240;
 
@@ -75,6 +97,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function Zone() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -83,6 +108,30 @@ export default function Zone() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [data, setData] = useState([
+    { id: 1, barangay:'Salimbalan', zone: 6, municipal: 'Baungon', province:'bukidnon' },
+    { id: 2,  barangay:'San Vicente', zone: 7,municipal: 'Baungon', province:'bukidnon'},
+    { id: 3, barangay:'Imbatug', zone: 8,municipal: 'Baungon', province:'bukidnon'}
+  ]);
+  const [formData, setFormData] = useState({ barangay:'', zone: '', municipal:'', province:''});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleAdd = () => {
+    const newData = [...data, { id: data.length + 1, ...formData }];
+    setData(newData);
+    setFormData({ barangay:'', zone:'', municipal:'', province:''});
+  };
+
+  const handleDelete = (id) => {
+    const newData = data.filter(item => item.id !== id);
+    setData(newData);
+  };
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -99,7 +148,7 @@ export default function Zone() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-           Zones Page
+           Zones Pbarangay
           </Typography>
         </Toolbar>
       </AppBar>
@@ -152,9 +201,102 @@ export default function Zone() {
       <Main open={open}>
         <DrawerHeader />
         <Typography paragraph>
+          <div >
+            <Button onClick={handleOpenModal}>Add  Zone </Button>
+              <Modal
+                keepMounted
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+              >
+                <Box sx={style}>
+                  <h3>Zone Form</h3>
+                  <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Barangay</label>
+                      <input
+                      className='form-control'
+                        type="text"
+                        placeholder=""
+                        name="barangay"
+                        value={formData.barangay}
+                        onChange={handleChange}
+                        style={{ margin: '5px' }}
+                      />
+                  </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Zone</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="zone"
+                            value={formData.zone}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Municipal</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="municipal"
+                            value={formData.municipal}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                    <div>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Province</label>
+                        <input
+                          class="form-control"
+                            type="text"
+                            placeholder=""
+                            name="province"
+                            value={formData.province}
+                            onChange={handleChange}
+                            style={{ margin: '5px' }}
+                          />
+                    </div>
+                  <button className='btn btn-success w-100' onClick={handleAdd}>Submit</button>
+                </Box>
+              </Modal>
+            </div> 
           
         </Typography>
         <Typography paragraph>
+          <TableContainer components={Paper}>
+        
+            <Table sx={{ minWidth: 650}}aria-label="caption table">
+              <TableHead>
+                <TableRow>
+                  <TableCell >ID</TableCell >
+                  <TableCell>Barangay</TableCell >
+                  <TableCell>Zone</TableCell >
+                  <TableCell>Municipality</TableCell>
+                  <TableCell>Province</TableCell>
+                  
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.map(item => (
+                  <TableRow  key={item.id}>
+                    <TableCell>{item.id}</TableCell >
+                    <TableCell>{item.barangay}</TableCell >
+                    <TableCell>{item.zone}</TableCell>
+                    <TableCell>{item.municipal}</TableCell>
+                    <TableCell>{item.province}</TableCell>
+                    
+                    <TableCell >
+                      <button onClick={() => handleDelete(item.id)}>Delete</button>
+                    </TableCell >
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
           
         </Typography>
       </Main>
