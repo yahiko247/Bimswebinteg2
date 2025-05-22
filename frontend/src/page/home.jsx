@@ -47,7 +47,7 @@ function Home(props) {
             <Card style={{margin:'20px', background: 'rgba(40, 125, 105, 1)', color: 'white', width:'300px', height: '150px'}}>
               <CardContent>
                 <Typography variant="h5" component="h2">
-                <Link to='/zone' style={{textDecoration: 'none', color:'white'}}>Zone</Link>
+                <Link to='/zone' style={{textDecoration: 'none', color:'white'}}>zone</Link>
                 </Typography>
               </CardContent>
             </Card>
