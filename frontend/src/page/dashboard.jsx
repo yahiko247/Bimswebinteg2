@@ -12,6 +12,7 @@ import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
 import PeopleIcon from '@mui/icons-material/People';
 import Home from '../page/home';
+import { SignOutButton } from '@toolpad/core/Account';
 
 
 
@@ -59,6 +60,9 @@ const NAVIGATION = [
     title: 'Integrations',
     icon: <LayersIcon />,
   },
+  {
+    icon: <SignOutButton/>
+  }
 ];
 
 const demoTheme = createTheme({

@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: 'http://192.168.1.105:5173', // end point
+    origin: 'http://192.168.1.108:5173', // end point
     credentials: true
 }));
 app.use(express.json());

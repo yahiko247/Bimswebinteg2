@@ -122,7 +122,7 @@ export default function HousePage() {
   const [data, setData] = useState([])
   useEffect(()=> {
     
-    axios.get('http://192.168.1.105:8081/houses')
+    axios.get('http://192.168.1.108:8081/houses')
     .then(res => setData(res.data))
     .then(err => console.log(err));
   }, [])

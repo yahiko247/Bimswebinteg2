@@ -18,7 +18,7 @@ function Home(props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Typography paragraph>
+        <Typography >
           <div style={{display: 'flex', flexWrap: 'wrap', gap: '1px'}}>
             <Card style={{margin:'20px', background: 'rgba(45, 153, 8, 1)', color: 'white', width:'300px', height: '150px'}}>
               <CardContent>

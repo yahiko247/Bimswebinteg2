@@ -25,7 +25,7 @@ function Login() {
     event.preventDefault();
     setErrors(Validation(values));
     if(errors.email === "" && errors.password === ""){
-      axios.post('http://192.168.1.105:8081/login', values)
+      axios.post('http://192.168.1.108:8081/login', values)
       .then(res => {
         if(res.data === "Login success") {
           navigate('/dasboard');
